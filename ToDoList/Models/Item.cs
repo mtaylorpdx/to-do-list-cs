@@ -42,9 +42,14 @@ namespace ToDoList.Models
         return allItems;
     }
 
-    public static void ClearAll()
-    {
-    }
+   public static void ClearAll()
+   {
+     MySqlConnection conn = DB.Connection();
+     conn.Open();
+     MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+     cmd.CommandText = @"DELETE FROM items;";
+     cmd.ExecuteNonQuery();
+  }
 
     public static Item Find(int searchId)
     {
